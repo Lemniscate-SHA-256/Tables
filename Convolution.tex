@@ -1,0 +1,45 @@
+### **Mathematical Definitions of Convolution (LaTeX)**  
+
+#### **1. Standard 2D Convolution (Discrete Cross-Correlation)**  
+For an input tensor \( I \) of shape \( (H, W) \) and a kernel \( K \) of size \( (k_h, k_w) \):  
+$$
+O[i, j] = \sum_{m=0}^{k_h-1} \sum_{n=0}^{k_w-1} I[i+m, j+n] \cdot K[m, n]
+$$  
+- \( O \): Output feature map.  
+- \( H, W \): Input height and width.  
+- \( k_h, k_w \): Kernel height and width (kernel size).  
+
+---
+
+#### **2. Multi-Channel Convolution**  
+For an input tensor \( I \) with \( C \) channels (shape \( (C, H, W) \)) and \( F \) filters (kernels \( K \) of size \( (C, k_h, k_w) \)):  
+$$
+O[f, i, j] = \sum_{c=0}^{C-1} \sum_{m=0}^{k_h-1} \sum_{n=0}^{k_w-1} I[c, i+m, j+n] \cdot K[f, c, m, n] + b[f]
+$$  
+- \( O \): Output feature map with \( F \) channels.  
+- \( b[f] \): Bias term for filter \( f \).  
+
+---
+
+#### **3. Valid Padding (No Padding)**  
+Output dimensions when no padding is applied:  
+$$
+H_{\text{out}} = \left\lfloor \frac{H - k_h}{\text{stride}} \right\rfloor + 1, \quad
+W_{\text{out}} = \left\lfloor \frac{W - k_w}{\text{stride}} \right\rfloor + 1
+$$  
+
+---
+
+#### **4. Same Padding (Preserve Spatial Dimensions)**  
+Padding \( P \) added to maintain input size (when stride \(=1\)):  
+$$
+P = \left\lfloor \frac{k_h - 1}{2} \right\rfloor, \quad \text{Output size} = H
+$$  
+
+---
+
+#### **5. Strided Convolution**  
+For stride \( s \):  
+$$
+H_{\text{out}} = \left\lfloor \frac{H - k_h + 2P}{s} \right\rfloor + 1
+$$  
